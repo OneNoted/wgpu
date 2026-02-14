@@ -463,6 +463,10 @@ pub fn map_vk_present_mode(mode: vk::PresentModeKHR) -> Option<wgt::PresentMode>
         Some(wgt::PresentMode::Fifo)
     } else if mode == vk::PresentModeKHR::FIFO_RELAXED {
         Some(wgt::PresentMode::FifoRelaxed)
+    } else if mode == vk::PresentModeKHR::from_raw(1000361000) {
+        // VK_PRESENT_MODE_FIFO_LATEST_READY_EXT (Vulkan 1.3.297)
+        // Behaves like FIFO but presents the latest ready image.
+        Some(wgt::PresentMode::Fifo)
     } else {
         log::warn!("Unrecognized present mode {:?}", mode);
         None
